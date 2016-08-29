@@ -9,11 +9,13 @@ https://github.com/ptraverse/plotly-strava-bellcurver
 
 
 # Outline
+
 For any list of efforts I want:
-*Drawing as a bell curve
-*Calc of std dev (x-axis scale)
-*Average (mean)
-*Y-axis scale (histogram)
+
+* Drawing as a bell curve
+* Calc of std dev (x-axis scale)
+* Average (mean)
+* Y-axis scale (histogram)
 
 `function drawHistogram(effortList, effortId = null);`
 
@@ -22,7 +24,7 @@ https://plot.ly/nodejs/histograms/
 http://c9.io/
 
 # T0d0
-*list
-*draw
-*clean up
-*test?
+* list
+* draw
+* clean up
+* test?
