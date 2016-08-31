@@ -1,19 +1,24 @@
 {
-  "name": "chat-example",
+  "name": "plotly-strava-bellcurver",
   "version": "0.0.0",
-  "description": "A chat example to showcase how to use `socket.io` with a static `express` server with `async` for control flow.",
-  "main": "server.js",
+  "description": "plotly-strava-bellcurver",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
   "repository": "",
-  "author": "Mostafa Eweda <mo.eweda@gmail.com>",
+  "author": "Philippe Traverse <philippe.traverse@gmail.com>",
   "dependencies": {
     "async": "~0.2.8",
     "ejs": "^2.5.1",
     "express": "~3.2.4",
     "html": "^1.0.0",
+    "lodash": "^4.15.0",
+    "nodemon": "^1.10.2",
     "passport": "*.*",
     "passport-strava-oauth2": "*.*",
     "plotly": "*.*",
+    "request": "^2.74.0",
     "socket.io": "~0.9.14",
-    "strava-v3": "*.*"
+    "strava-v3": "^1.12.1"
   }
 }

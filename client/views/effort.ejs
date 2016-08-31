@@ -1,0 +1,16 @@
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/plotly-latest.min.js"></script>
+<script type="text/javascript" src="/js/effort.js"></script>
+
+<data id="effort">
+    <%= JSON.stringify(effort.matchedEffortsTimes) %>
+</data>
+
+<br />
+
+<% var data = [{ x: effort.matchedEffortsTimes, type: 'histogram', marker: { color: 'rgba(100,250,100,0.7)', }, } ]; %>
+<% Plotly.newPlot('plotly', data); %>
+
+<div id="plotly">
+</div>
+
