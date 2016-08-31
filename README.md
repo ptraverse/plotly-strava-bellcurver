@@ -3,7 +3,7 @@ Plotly Strava Bellcurver
 
 Show where a single effort sits on a bellcurve within a set of efforts.
 
-<img src="/img/stravabellcurve.JPG" />
+<img src="client/img/stravabellcurve.JPG" />
 
 https://plotly-strava-bellcurver-ptraverse.c9users.io/
 
