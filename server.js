@@ -95,7 +95,9 @@ app.get('/bellcurve/effort/:id', ensureAuthenticated, function(req, res) {
     //get matching segment GET https://www.strava.com/api/v3/segments/:id/all_efforts
     var segmentId = matchedEffort.segment.id;
     var segmentUrl = 'https://www.strava.com/api/v3/segments/' +  segmentId + '/all_efforts'
-    segmentUrl += '?per_page=100'
+    segmentUrl += '?per_page=100';
+    //tODO Pagination!!
+    
     request.get(segmentUrl, {
       'auth': {
         'bearer': req.user.token
@@ -107,6 +109,7 @@ app.get('/bellcurve/effort/:id', ensureAuthenticated, function(req, res) {
         var matchedEffortsList = response;
       }
       
+      //Matched Effort Times - keep only this list and paginate over 
       var matchedEffortsTimes = _(matchedEffortsList).map(e => e.elapsed_time);
       
       var effortObj = { 
@@ -117,7 +120,8 @@ app.get('/bellcurve/effort/:id', ensureAuthenticated, function(req, res) {
         "matchedEffortsTimes": matchedEffortsTimes
       };
         
-      res.render('effort', { effort: effortObj});
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify(effortObj));
       
     });
   });

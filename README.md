@@ -24,7 +24,8 @@ https://plot.ly/nodejs/histograms/
 http://c9.io/
 
 # T0d0
-* list
+* move to client side
 * draw
 * clean up
+* write a story
 * test?

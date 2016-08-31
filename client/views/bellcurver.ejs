@@ -1,6 +1,8 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plotly-latest.min.js"></script>
 <script type="text/javascript" src="js/bellcurve.js"></script>
 
+<input type="hidden" value=<%= user.token %> id="token" readonly />
 <label for="effortId">Effort ID</label>
 <br />
 <input id="effortId" type="number" placeholder="Enter Effort ID" value="17037555262" />
@@ -8,3 +10,6 @@
 <br />
 <Br />
 <div id="debug"></div>
+<br />
+<Br />
+<div id="plotly"></div>
