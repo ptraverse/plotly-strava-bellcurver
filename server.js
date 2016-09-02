@@ -16,6 +16,8 @@ const STRAVA_CLIENT_ID = 13234;
 const STRAVA_CLIENT_SECRET = 'f7ff13f2589f3afe2eec509782e5dcdc3bbf5e0d'; 
 const STRAVA_CALLBACK_URL = "https://plotly-strava-bellcurver-ptraverse.c9users.io/auth/strava/callback";
 
+const PAGINATION_MAX = 1000;
+
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -52,34 +54,78 @@ app.configure(function() {
   app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.session({ secret: 'keyboard cat' }));
-  // Initialize Passport!  Also use passport.session() middleware, to support
-  // persistent login sessions (recommended).
+  app.use(express.session({ secret: 'pumpernickle' }));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
   
-  
   app.use(express.static(__dirname + '/client'));
 });
 
+//strava auth route
 app.get('/auth/strava',
   passport.authenticate('strava', { scope: ['public'] }),
   function(req, res){
     // The request will be redirected to Strava for authentication, so this
     // function will not be called.
-  });
+});
 
+//test login works
 app.get('/account', ensureAuthenticated, function(req, res){
-  console.log(req);
   res.render('account', { user: req.user });
 });
 
+//front-end that does ajax to JSON endpoint below
 app.get('/bellcurver', ensureAuthenticated, function(req, res) {
   res.render('bellcurver', { user: req.user });
 });
 
+//provides JSON endpoint for frontend
 app.get('/bellcurve/effort/:id', ensureAuthenticated, function(req, res) {
+  
+  //recursive async paginate function
+  function paginate(url, per_page, token, page, max, done) {
+    var results = [];
+    var page = page || 1;
+    var max = max - per_page; //offset by 1 correction
+    
+    return subPaginate(results, url, per_page, token, page, max, done);
+  };
+  
+  //helper for recursive async paginate function
+  function subPaginate(results, url, per_page, token, page, max, done) {
+    var finished = false;
+    var suffix = '?per_page=' + per_page + '&page=' + page;
+    request.get(url + suffix, {
+      'auth': {
+        'bearer': token
+      }
+    }, function(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var matches = JSON.parse(body);
+        
+        if (matches.length < per_page || (results.length >= max) ) {
+          finished = true;
+        }
+        
+        _.each(JSON.parse(body), function(match) {
+            results.push(match);
+        });
+        
+        if (finished) {
+          return done(results);
+        } else {
+          page++
+          // console.log('paginating next page ' + page);
+          
+          return subPaginate(results, url, per_page, token, page, max, done);
+        }
+      } else {
+        console.log(error);
+        results.push(error);
+      }
+    });
+  };
   
   //get matching effort
   var effortUrl = 'https://www.strava.com/api/v3/segment_efforts/' + req.params.id;
@@ -92,37 +138,21 @@ app.get('/bellcurve/effort/:id', ensureAuthenticated, function(req, res) {
       var matchedEffort = JSON.parse(body);
     }
     
-    //get matching segment GET https://www.strava.com/api/v3/segments/:id/all_efforts
+    //get all efforts for this segment
     var segmentId = matchedEffort.segment.id;
-    var segmentUrl = 'https://www.strava.com/api/v3/segments/' +  segmentId + '/all_efforts'
-    segmentUrl += '?per_page=100';
-    //tODO Pagination!!
-    
-    request.get(segmentUrl, {
-      'auth': {
-        'bearer': req.user.token
-      }
-    }, function(error, response, body) {
-      if (!error && response.statusCode == 200) {
-        var matchedEffortsList = JSON.parse(body);
-      } else {
-        var matchedEffortsList = response;
-      }
+    var segmentUrl = 'https://www.strava.com/api/v3/segments/' +  segmentId + '/all_efforts';
+    paginate(segmentUrl, 50, req.user.token, 1, PAGINATION_MAX, function(matchedEffortsList) {
       
-      //Matched Effort Times - keep only this list and paginate over 
+      //render json obj of results      
       var matchedEffortsTimes = _(matchedEffortsList).map(e => e.elapsed_time);
-      
-      var effortObj = { 
+      var effortObj = {
+        "matchedEffortsListLength": matchedEffortsList.length,
         "effortId": req.params.id,
         "matchedEffort": matchedEffort,
-        "matchedEffortsListLength": matchedEffortsList.length,
-        // "matchedEffortsList": matchedEffortsList
         "matchedEffortsTimes": matchedEffortsTimes
       };
-        
       res.setHeader('Content-Type', 'application/json');
       res.send(JSON.stringify(effortObj));
-      
     });
   });
 });
@@ -167,3 +197,4 @@ app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();
   console.log("App Listening on Port " + addr);
 });
+

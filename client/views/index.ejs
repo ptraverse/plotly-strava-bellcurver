@@ -1,9 +1,15 @@
 <% if (!user) { %>
-	<h2>Welcome! Please <a href="/login">log in.</a></h2>
+	<h2>Welcome! Please log in.</h2>
+	<a href="/auth/strava">
+	    <img src="https://strava.github.io/api/images/ConnectWithStrava.png" />
+	</a>
 <% } else { %>
 	<h2>Hello, <%= user.displayName %>.</h2>
 	<a href="/bellcurver">bellcurver</a>
 	<br />
 	<br />
 	<a href="/account">account</a>
+	<br />
+	<br />
+	<a href="/logout">logout</a>
 <% } %>

@@ -11,8 +11,8 @@
 body {
   font-family: helvetica, arial, sans-serif;
   margin: 25px;
-  background-image: url('https://cdn.hyperdev.com/us-east-1%3A0a39fccc-90c1-4f3e-9ef9-e27742f7f40f%2Fyn77qVn.jpg');
   background-size: 100%;
+  text-align: center;
 }
 
 h1 {

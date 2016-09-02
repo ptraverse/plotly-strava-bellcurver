@@ -1,6 +1,8 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
 <script type="text/javascript" src="js/plotly-latest.min.js"></script>
 <script type="text/javascript" src="js/bellcurve.js"></script>
+
 
 <input type="hidden" value=<%= user.token %> id="token" readonly />
 <label for="effortId">Effort ID</label>
@@ -8,8 +10,42 @@
 <input id="effortId" type="number" placeholder="Enter Effort ID" value="17037555262" />
 <button id="submit">Submit</button>
 <br />
-<Br />
-<div id="debug"></div>
+<img id="loading" src="/img/124.gif" height=50 />
 <br />
+<br />
+<table id="statsTable" border=1 style="width: 100%;">
+    <tr>
+        <td>
+            Segment Name
+        </td>
+        <td id="name">
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Your Time
+        </td>
+        <td id="niceTime">
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Effort Start Date 
+        </td>
+        <td id="start_date_local">
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Total Efforts <sup>* max 1000</sup>
+        </td>
+        <td id="matchedEffortsListLength">
+            
+        </td>
+    </tr>
+</table>
 <Br />
 <div id="plotly"></div>
