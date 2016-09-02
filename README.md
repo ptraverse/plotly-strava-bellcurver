@@ -24,6 +24,17 @@ For any list of efforts I want:
 
 https://ide.c9.io/ptraverse/plotly-strava-bellcurver
 
+# How do I get an Effort ID?
+
+If you are viewing a specific Segment within an Activity, then EffortID will be in the URL.
+
+Reminder:
+* Activity = Going for a run
+* Segment = Point A to Point B
+* Effort = An Athlete doing a Segment within an Activity.
+
+<img src="/client/img/strava2.png" />
+
 # t0d0s
 
 * Add optional filters (start_date, end_date, athlete_id)

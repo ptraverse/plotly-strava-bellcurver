@@ -21,13 +21,14 @@
    //draw stats texts
    var summarize = function(data) {
       $('#statsTable').css('display', 'block');
-      $('#name').append(data.matchedEffort.name);
+      $('#athleteId').html(data.matchedEffort.athlete.id);
+      $('#name').html(data.matchedEffort.name);
       var niceTime = moment("2015-01-01").startOf('day')
          .seconds(data.matchedEffort.elapsed_time)
          .format('H:mm:ss');
-      $('#niceTime').append(niceTime + ' (' + data.matchedEffort.elapsed_time + 's)' );
-      $('#start_date_local').append(data.matchedEffort.start_date_local);
-      $('#matchedEffortsListLength').append(data.matchedEffortsListLength);
+      $('#niceTime').html(niceTime + ' (' + data.matchedEffort.elapsed_time + 's)' );
+      $('#start_date_local').html(data.matchedEffort.start_date_local);
+      $('#matchedEffortsListLength').html(data.matchedEffortsListLength);
    };
    
    $(document).ready(function() {
