@@ -16,7 +16,7 @@ const STRAVA_CLIENT_ID = 13234;
 const STRAVA_CLIENT_SECRET = 'f7ff13f2589f3afe2eec509782e5dcdc3bbf5e0d'; 
 const STRAVA_CALLBACK_URL = "https://plotly-strava-bellcurver-ptraverse.c9users.io/auth/strava/callback";
 
-const PAGINATION_MAX = 1000;
+const PAGINATION_MAX = 2000;
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -77,7 +77,7 @@ app.get('/account', ensureAuthenticated, function(req, res){
 
 //front-end that does ajax to JSON endpoint below
 app.get('/bellcurver', ensureAuthenticated, function(req, res) {
-  res.render('bellcurver', { user: req.user });
+  res.render('bellcurver', { user: req.user, PAGINATION_MAX: PAGINATION_MAX });
 });
 
 //provides JSON endpoint for frontend

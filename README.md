@@ -1,9 +1,9 @@
 Plotly Strava Bellcurver
 ========================
 
-Show where a single effort sits on a bellcurve within a set of efforts.
+Strava's leaderboards show rank within a set, but sometimes a picture is better. This project allows you to show how a histogram (aka bell curve) of other efforts on the same segment as the input effort.
 
-<img src="client/img/stravabellcurve.JPG" />
+<img src="client/img/stravabellcurve2.png" />
 
 https://plotly-strava-bellcurver-ptraverse.c9users.io/
 
@@ -24,8 +24,11 @@ For any list of efforts I want:
 
 https://ide.c9.io/ptraverse/plotly-strava-bellcurver
 
-# T0d0
-* pagination
-* clean up
-* write a better readme
-* test?
+# t0d0s
+
+* Add optional filters (start_date, end_date, athlete_id)
+* Reactify ?
+* Tests ?
+* FrontEnd beautification
+
+none of the todos will ever get done.

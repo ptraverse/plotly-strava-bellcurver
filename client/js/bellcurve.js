@@ -22,13 +22,12 @@
    var summarize = function(data) {
       $('#statsTable').css('display', 'block');
       $('#name').append(data.matchedEffort.name);
-      $('#secondsTime').append(data.matchedEffort.elapsed_time)
       var niceTime = moment("2015-01-01").startOf('day')
          .seconds(data.matchedEffort.elapsed_time)
          .format('H:mm:ss');
-      $('#niceTime').append(niceTime);
+      $('#niceTime').append(niceTime + ' (' + data.matchedEffort.elapsed_time + 's)' );
       $('#start_date_local').append(data.matchedEffort.start_date_local);
-      $('#matchedEffortsListLength').append('Num Rows: ' + data.matchedEffortsListLength);
+      $('#matchedEffortsListLength').append(data.matchedEffortsListLength);
    };
    
    $(document).ready(function() {
@@ -54,4 +53,5 @@
          });
       });
    }); //endDocumentReadyFunction
+   
 })(jQuery); //endIIFE
